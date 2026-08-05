@@ -12,16 +12,12 @@ export default function Hero() {
 
   return (
     <section id="home" className="min-h-screen flex items-center pt-20 relative overflow-hidden bg-dot-pattern">
-      {/* Abstract background glows */}
-      <motion.div 
-        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600 rounded-full blur-[128px] -z-10" 
+      {/* Abstract background glows (Static for better performance) */}
+      <div 
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600 rounded-full blur-[128px] -z-10 opacity-40" 
       />
-      <motion.div 
-        animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-600 rounded-full blur-[128px] -z-10" 
+      <div 
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-600 rounded-full blur-[128px] -z-10 opacity-30" 
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -34,17 +30,27 @@ export default function Hero() {
             transition={{ duration: 0.8 }}
           >
             <p className="text-purple-400 font-medium mb-4 tracking-wide">Hello, I&apos;m</p>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4 flex flex-wrap">
-              {nameLetters.map((letter, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.3 + i * 0.05, type: "spring" }}
-                >
-                  {letter === " " ? "\u00A0" : letter}
-                </motion.span>
-              ))}
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4 flex flex-wrap gap-x-3 md:gap-x-5">
+              {personal.name.split(" ").map((word, wordIndex, array) => {
+                const previousLettersCount = array.slice(0, wordIndex).join("").length;
+                return (
+                  <span key={wordIndex} className="flex">
+                    {word.split("").map((letter, letterIndex) => {
+                      const i = previousLettersCount + letterIndex;
+                      return (
+                        <motion.span
+                          key={letterIndex}
+                          initial={{ y: 20, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          transition={{ duration: 0.5, delay: 0.3 + i * 0.05, type: "spring" }}
+                        >
+                          {letter}
+                        </motion.span>
+                      );
+                    })}
+                  </span>
+                );
+              })}
             </h1>
             
             <div className="h-10 mb-6 overflow-hidden">

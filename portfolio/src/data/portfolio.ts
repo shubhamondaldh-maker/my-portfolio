@@ -48,28 +48,28 @@ export const portfolioData = {
       name: "OrgHive – Employee Management Dashboard",
       description: "Developed a responsive employee management dashboard using React 19, TypeScript, Vite, Express.js and Tailwind CSS. Built RESTful APIs, role-based employee management, search, sorting, filtering and pagination using TanStack Table. Built validated forms using React Hook Form and Zod, analytics using Recharts, and animations using Framer Motion.",
       tech: ["React", "TypeScript", "Express.js", "Tailwind CSS", "Vite", "TanStack Table", "React Hook Form", "Zod", "Recharts", "Framer Motion"],
-      github: "#",
+      github: "https://github.com/shubhamondaldh-maker/orghive",
       demo: "#"
     },
     {
       name: "Automation Testing Framework",
       description: "Built a reusable automation testing framework using Playwright and Jest with Page Object Model architecture, automated end-to-end test scenarios and HTML reporting.",
       tech: ["Playwright", "Jest", "Test Automation", "E2E Testing", "POM"],
-      github: "#",
+      github: "https://github.com/shubhamondaldh-maker/automation-testing-framework",
       demo: "#"
     },
     {
       name: "REST API Testing",
       description: "Developed automated REST API tests using Supertest and Jest to validate endpoints, response status codes, response payloads and error-handling scenarios.",
       tech: ["Supertest", "Jest", "REST API", "API Testing", "Test Automation"],
-      github: "#",
+      github: "https://github.com/shubhamondaldh-maker/rest-api",
       demo: "#"
     },
     {
       name: "Zerodha Clone – Trading Dashboard",
       description: "React-based frontend development for an interactive trading and data visualization dashboard with real-time UI updates.",
       tech: ["React.js", "Data Visualization", "Frontend Development"],
-      github: "#",
+      github: "https://github.com/shubhamondaldh-maker/zerodha-clone",
       demo: "#"
     }
   ],
