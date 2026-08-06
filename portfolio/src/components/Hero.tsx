@@ -8,7 +8,7 @@ import { portfolioData } from "@/data/portfolio";
 export default function Hero() {
   const { personal } = portfolioData;
 
-  const nameLetters = personal.name.split("");
+
 
   return (
     <section id="home" className="min-h-screen flex items-center pt-20 relative overflow-hidden bg-dot-pattern">
