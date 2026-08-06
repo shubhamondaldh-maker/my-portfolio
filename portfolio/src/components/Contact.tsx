@@ -19,7 +19,7 @@ export default function Contact() {
     const data = {
       ...formData,
       // IMPORTANT: Replace this with your actual Web3Forms access key
-      access_key: "YOUR_WEB3FORMS_ACCESS_KEY_HERE", 
+      access_key: "7f8ab664-cb8c-4bef-a25f-ef3be8b61070", 
     };
 
     try {
