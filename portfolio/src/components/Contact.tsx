@@ -45,10 +45,11 @@ export default function Contact() {
         setErrorMessage(result.message || "API returned an error");
         setTimeout(() => { setStatus("idle"); setErrorMessage(null); }, 8000);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Web3Forms Fetch Error:", error);
+      const errorMessage = error instanceof Error ? error.message : "Network Error: Blocked by browser or AdBlocker";
       setStatus("error");
-      setErrorMessage(error.message || "Network Error: Blocked by browser or AdBlocker");
+      setErrorMessage(errorMessage);
       setTimeout(() => { setStatus("idle"); setErrorMessage(null); }, 8000);
     }
   };
