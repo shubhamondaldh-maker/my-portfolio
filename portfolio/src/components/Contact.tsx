@@ -11,10 +11,12 @@ export default function Contact() {
   const { personal } = portfolioData;
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("submitting");
+    setErrorMessage(null);
 
     const data = {
       ...formData,
@@ -38,12 +40,16 @@ export default function Contact() {
         setFormData({ name: "", email: "", message: "" });
         setTimeout(() => setStatus("idle"), 5000);
       } else {
+        console.error("Web3Forms API Error:", result);
         setStatus("error");
-        setTimeout(() => setStatus("idle"), 5000);
+        setErrorMessage(result.message || "API returned an error");
+        setTimeout(() => { setStatus("idle"); setErrorMessage(null); }, 8000);
       }
-    } catch {
+    } catch (error: any) {
+      console.error("Web3Forms Fetch Error:", error);
       setStatus("error");
-      setTimeout(() => setStatus("idle"), 5000);
+      setErrorMessage(error.message || "Network Error: Blocked by browser or AdBlocker");
+      setTimeout(() => { setStatus("idle"); setErrorMessage(null); }, 8000);
     }
   };
 
@@ -154,6 +160,14 @@ export default function Contact() {
                  status === "error" ? "Failed to Send" : 
                  "Send Message"}
               </button>
+              
+              {status === "error" && errorMessage && (
+                <div className="mt-4 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm text-center">
+                  <p className="font-semibold mb-1">Error Details:</p>
+                  <p>{errorMessage}</p>
+                  <p className="text-xs mt-2 opacity-80">(If it says Network Error, try disabling your AdBlocker or Brave Shields)</p>
+                </div>
+              )}
             </form>
           </motion.div>
         </div>
