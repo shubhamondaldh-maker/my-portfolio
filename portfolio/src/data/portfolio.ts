@@ -32,7 +32,7 @@ export const portfolioData = {
     {
       role: "Software Developer Intern | Frontend Development & QA",
       company: "SKY IT Solution",
-      period: "Jan 2024 – Jun 2024",
+      period: "Dec 2025 - July 2026",
       responsibilities: [
         "Developed responsive web applications using React.js, Tailwind CSS, Bootstrap, HTML, CSS and JavaScript.",
         "Performed manual, UI, functional, regression and cross-browser testing.",
