@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import BackgroundGrid from "@/components/BackgroundGrid";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${inter.variable} font-sans antialiased bg-slate-950 text-slate-200`}>
+        <BackgroundGrid />
         {children}
       </body>
     </html>
