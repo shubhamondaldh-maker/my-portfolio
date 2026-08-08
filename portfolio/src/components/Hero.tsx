@@ -120,13 +120,13 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="relative hidden lg:block h-[560px]"
+            className="relative w-full h-[450px] sm:h-[540px] lg:h-[560px] mt-12 lg:mt-0"
           >
             {/* Soft backdrop glow panel */}
             <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/5 to-indigo-500/5 rounded-2xl filter blur-xl -z-10" />
 
             {/* Simulated Code Editor Window */}
-            <div className="absolute top-4 right-4 w-[460px] glass-card rounded-xl overflow-hidden shadow-2xl border-purple-500/10">
+            <div className="absolute top-4 right-0 sm:right-4 left-0 sm:left-auto mx-auto sm:mx-0 w-[92%] sm:w-[400px] md:w-[450px] glass-card rounded-xl overflow-hidden shadow-2xl border-purple-500/10">
               <div className="bg-slate-950/80 px-4 py-3 flex justify-between items-center border-b border-slate-900">
                 <div className="flex items-center gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-[#ef4444]/75"></div>
@@ -139,7 +139,7 @@ export default function Hero() {
                   <span className="text-[10px] font-mono">Playwright</span>
                 </div>
               </div>
-              <div className="p-5 font-mono text-[11px] leading-relaxed text-slate-300 bg-slate-950/40">
+              <div className="p-4 sm:p-5 font-mono text-[10px] sm:text-[11px] leading-relaxed text-slate-300 bg-slate-950/40">
                 <p><span className="text-purple-400">import</span> {"{ test, expect }"} <span className="text-purple-400">from</span> <span className="text-emerald-400">&apos;@playwright/test&apos;</span>;</p>
                 <p className="text-slate-600">{"// End-to-end automation login test"}</p>
                 <p><span className="text-indigo-400">test</span>(<span className="text-emerald-400">&apos;user authentication flow&apos;</span>, <span className="text-purple-400">async</span> ({"{ page }"}) =&gt; {"{"}</p>
@@ -160,7 +160,7 @@ export default function Hero() {
               initial={{ y: 20 }}
               animate={{ y: [0, -8, 0] }}
               transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-              className="absolute bottom-6 left-2 w-[340px] glass-card rounded-xl overflow-hidden shadow-2xl border-purple-500/20 bg-slate-950/80"
+              className="absolute bottom-4 sm:bottom-6 left-0 sm:left-2 mx-auto sm:mx-0 w-[84%] sm:w-[300px] md:w-[340px] glass-card rounded-xl overflow-hidden shadow-2xl border-purple-500/20 bg-slate-950/80"
             >
               <div className="bg-slate-900/90 px-4 py-2.5 flex justify-between items-center border-b border-slate-800">
                 <div className="flex items-center gap-2">
