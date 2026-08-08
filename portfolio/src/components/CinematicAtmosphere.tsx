@@ -186,9 +186,9 @@ export default function CinematicAtmosphere() {
           baseY: 0,
           vx: (Math.random() - 0.5) * 0.4,
           vy: (Math.random() - 0.5) * 0.4,
-          r: z < 0.8 ? 2.5 + Math.random() * 1.5 : z > 1.2 ? 3.5 + Math.random() * 1.5 : 1.2 + Math.random() * 1.0,
-          alpha: Math.random() * 0.2,
-          targetAlpha: 0.05 + Math.random() * 0.25,
+          r: z < 0.8 ? 3.5 + Math.random() * 2.0 : z > 1.2 ? 5.5 + Math.random() * 2.5 : 2.0 + Math.random() * 1.5,
+          alpha: Math.random() * 0.4,
+          targetAlpha: 0.25 + Math.random() * 0.45,
           pulsePhase: Math.random() * Math.PI * 2,
           pulseSpeed: 0.005 + Math.random() * 0.015,
           z,
@@ -225,15 +225,15 @@ export default function CinematicAtmosphere() {
 
     // Spawn sparkles Scheduler
     const handleSparkles = () => {
-      if (sparkles.length < 3 && Math.random() < 0.008) {
+      if (sparkles.length < 4 && Math.random() < 0.022) {
         sparkles.push({
           x: Math.random() * width,
           y: Math.random() * height,
           size: 0.1,
-          maxSize: 3.5 + Math.random() * 3,
+          maxSize: 5.5 + Math.random() * 4.5,
           alpha: 0,
           life: 0,
-          maxLife: 50 + Math.random() * 50, // 800 - 1500ms at ~60fps
+          maxLife: 60 + Math.random() * 60, // 1000 - 2000ms
           phase: Math.random() * Math.PI,
         });
       }
@@ -477,33 +477,46 @@ export default function CinematicAtmosphere() {
         p.pulsePhase += p.pulseSpeed;
         const currentPulse = (Math.sin(p.pulsePhase) + 1) / 2; // [0, 1]
         p.alpha += (p.targetAlpha - p.alpha) * 0.015;
-        const finalAlpha = p.alpha * (0.3 + currentPulse * 0.7);
+        const finalAlpha = p.alpha * (0.5 + currentPulse * 0.5);
 
         // Draw depending on Depth Category (z)
         if (p.z < 0.8) {
           // Blurred background
-          const ffGrad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 2.2);
+          const ffGrad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 2.5);
           ffGrad.addColorStop(0, `rgba(139, 92, 246, ${finalAlpha})`);
-          ffGrad.addColorStop(0.5, `rgba(99, 102, 241, ${finalAlpha * 0.3})`);
+          ffGrad.addColorStop(0.3, `rgba(167, 139, 250, ${finalAlpha * 0.5})`);
+          ffGrad.addColorStop(0.6, `rgba(99, 102, 241, ${finalAlpha * 0.25})`);
+          ffGrad.addColorStop(1, "rgba(2, 6, 23, 0)");
+          ctx.fillStyle = ffGrad;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r * 2.5, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Bubble light core
+          ctx.fillStyle = `rgba(255, 255, 255, ${finalAlpha * 0.5})`;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r * 0.45, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (p.z > 1.2) {
+          // Foreground: Large, soft and translucent
+          const ffGrad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 2.2);
+          ffGrad.addColorStop(0, `rgba(167, 139, 250, ${finalAlpha * 0.75})`);
+          ffGrad.addColorStop(0.4, `rgba(139, 92, 246, ${finalAlpha * 0.3})`);
           ffGrad.addColorStop(1, "rgba(2, 6, 23, 0)");
           ctx.fillStyle = ffGrad;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r * 2.2, 0, Math.PI * 2);
           ctx.fill();
-        } else if (p.z > 1.2) {
-          // Foreground: Large, soft and translucent
-          const ffGrad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 1.8);
-          ffGrad.addColorStop(0, `rgba(167, 139, 250, ${finalAlpha * 0.6})`);
-          ffGrad.addColorStop(0.6, `rgba(139, 92, 246, ${finalAlpha * 0.15})`);
-          ffGrad.addColorStop(1, "rgba(2, 6, 23, 0)");
-          ctx.fillStyle = ffGrad;
+
+          // Bubble light core
+          ctx.fillStyle = `rgba(255, 255, 255, ${finalAlpha * 0.6})`;
           ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r * 1.8, 0, Math.PI * 2);
+          ctx.arc(p.x, p.y, p.r * 0.4, 0, Math.PI * 2);
           ctx.fill();
         } else {
           // Midground: Sharp and glowy
-          ctx.shadowBlur = 6;
-          ctx.shadowColor = "rgba(167, 139, 250, 0.8)";
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = "rgba(167, 139, 250, 0.9)";
           ctx.fillStyle = `rgba(255, 255, 255, ${finalAlpha * 0.95})`;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -571,9 +584,12 @@ export default function CinematicAtmosphere() {
         s.life += 1;
         s.phase = (s.life / s.maxLife) * Math.PI; // Sine wave phase for size/alpha
         
-        s.alpha = Math.sin(s.phase) * 0.85;
+        s.alpha = Math.sin(s.phase) * 1.0;
         s.size = Math.sin(s.phase) * s.maxSize;
 
+        // Apply a glowing drop shadow to sparkles so they shine clearly
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = "rgba(167, 139, 250, 0.85)";
         ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha})`;
         
         // Draw ✦ vector shape
@@ -585,6 +601,7 @@ export default function CinematicAtmosphere() {
         ctx.quadraticCurveTo(s.x, s.y, s.x, s.y - s.size);
         ctx.closePath();
         ctx.fill();
+        ctx.shadowBlur = 0; // Reset
 
         // Remove dead sparkles
         if (s.life >= s.maxLife) {
