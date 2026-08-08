@@ -73,7 +73,7 @@ export default function Navbar() {
             </a>
           </div>
           
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center">
             <div className="flex items-center space-x-1">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href.substring(1);
@@ -97,26 +97,9 @@ export default function Navbar() {
                 );
               })}
             </div>
-            
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 rounded-lg text-xs font-mono font-semibold uppercase tracking-wider border border-purple-500/30 text-purple-300 hover:text-white hover:bg-purple-600/20 hover:border-purple-400 hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] transition-all duration-300"
-            >
-              View Resume
-            </a>
           </div>
 
-          <div className="md:hidden flex items-center gap-4">
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold uppercase tracking-wider border border-purple-500/30 text-purple-300 hover:text-white transition-all duration-300"
-            >
-              Resume
-            </a>
+          <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-slate-300 hover:text-white focus:outline-none"
